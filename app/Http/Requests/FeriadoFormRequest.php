@@ -26,4 +26,20 @@ class FeriadoFormRequest extends FormRequest
             'data' => 'required|date',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     */
+    public function messages(): array
+    {
+        return [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome deve ser uma string.',
+            'nome.max' => 'O campo nome deve ter no máximo 255 caracteres.',
+            'data.required' => 'O campo data é obrigatório.',
+            'data.date' => 'O campo data deve ser uma data.',
+        ];
+    }
+
+    
 }

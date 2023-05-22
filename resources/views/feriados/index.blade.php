@@ -13,7 +13,7 @@
             <label for="search" class="hide">Search</label>
             <input type="search" name="search" id="search" placeholder="procurar...">
         </div>
-        <a class="button" href="{{ route('funcionarios.create') }}">
+        <a class="button" href="{{ route('feriados.create') }}">
             <i class="fa-solid fa-calendar-plus"></i>
             novo feriado
         </a>
@@ -28,6 +28,9 @@
                             <i class="fa-solid fa-calendar-day"></i>
                         </div>
                         {{ $feriado->nome }}
+                    </div>
+                    <div class="crud-detail">
+                        {{ $feriado->dataFormatada }}
                     </div>
                 </div>
                 <div class="crud-actions">

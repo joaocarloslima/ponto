@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FeriadoFormRequest;
 use App\Models\Feriado;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,7 @@ class FeriadoController extends Controller
     public function index()
     {
         $successMessage = session('successMessage');
-        //buscar funcionarios ativos 
-        $feriados = Feriado::all();
+        $feriados = Feriado::all()->sortBy('data');
 
         return view('feriados.index')
             ->with('feriados', $feriados)
@@ -26,15 +26,19 @@ class FeriadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('feriados.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FeriadoFormRequest $request)
     {
-        //
+        Feriado::create($request->all());
+
+        return redirect()
+            ->route('feriados.index')
+            ->with('successMessage', 'Feriado cadastrado com sucesso!');
     }
 
     /**

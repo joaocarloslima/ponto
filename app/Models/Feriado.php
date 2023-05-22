@@ -13,4 +13,9 @@ class Feriado extends Model
         'nome',
         'data',
     ];
+
+    public function getDataFormatadaAttribute()
+    {
+        return date('d/m/Y', strtotime($this->attributes['data']));
+    }
 }
