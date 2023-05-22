@@ -59,15 +59,27 @@ class FuncionarioController extends Controller
      */
     public function edit(Funcionario $funcionario)
     {
-        //
+        return view('funcionarios.edit')->with('funcionario', $funcionario);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Funcionario $funcionario)
+    public function update(FuncionarioFormRequest $request, Funcionario $funcionario)
     {
-        //
+        if ($request->hasFile('image_file')){
+            $request->validate([
+                'image_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $image = $request->file('image_file')->store('funcionarios', 'public');
+            $request->merge(['foto' => $image]);
+        }
+
+        $funcionario->fill($request->all());
+        $funcionario->save();
+
+        return to_route('funcionarios.index')
+            ->with('successMessage', 'Funcionário alterado com sucesso!');
     }
 
     /**
