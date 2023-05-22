@@ -1,6 +1,7 @@
 <?php
 $active = Route::currentRouteName();
 $active = str_contains($active, 'inativos') ? 'inativos' : $active;
+$active = str_contains($active, 'feriados') ? 'feriados' : $active;
 $active = str_contains($active, 'funcionarios') ? 'funcionarios' : $active;
 ?>
 
@@ -14,7 +15,7 @@ $active = str_contains($active, 'funcionarios') ? 'funcionarios' : $active;
                 </div>
             </li>
         </a>
-        <a href="#">
+        <a href="{{ route('feriados.index') }}">
             <li @if ($active == 'feriados') class="active" @endif>
                 <div class="menu-item">
                     <i class="fa-solid fa-calendar"></i>
