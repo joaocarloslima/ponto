@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::resource('funcionarios', FuncionarioController::class);
+
+Route::get('inativos', [FuncionarioController::class, 'inativos'])->name('funcionarios.inativos');
+Route::put('inativos/{funcionario}', [FuncionarioController::class, 'ativar'])->name('funcionarios.ativar');

@@ -98,4 +98,23 @@ class FuncionarioController extends Controller
         return to_route('funcionarios.index')
             ->with('successMessage', 'Funcionário inativado com sucesso!');
     }
+
+    public function inativos(){
+        $successMessage = session('successMessage');
+
+        $funcionarios = Funcionario::where('ativo', false)->get();
+
+        return view('funcionarios.inativos')
+            ->with('funcionarios', $funcionarios)
+            ->with('successMessage', $successMessage);
+    }
+
+    public function ativar(Funcionario $funcionario){
+        $funcionario->ativo = true;
+        $funcionario->save();
+
+        return to_route('funcionarios.inativos')
+            ->with('successMessage', 'Funcionário ativado com sucesso!');
+    }
+
 }
