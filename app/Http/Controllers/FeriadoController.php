@@ -70,6 +70,8 @@ class FeriadoController extends Controller
      */
     public function destroy(Feriado $feriado)
     {
-        //
+        $feriado->delete();
+        return to_route('feriados.index')
+            ->with('successMessage', 'Feriado excluído com sucesso!');
     }
 }
