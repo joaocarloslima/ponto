@@ -21,4 +21,16 @@ class Funcionario extends Authenticatable
         'foto'
     ];
 
+    public static function totalAtivos(){
+        return Funcionario::where('ativo', true)->count();
+    }
+
+    public static function totalInativos(){
+        return Funcionario::where('ativo', false)->count();
+    }
+
+    public static function total(){
+        return Funcionario::count();
+    }
+
 }

@@ -8,7 +8,7 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="mission-stat-number">
-                10
+                {{ $funcionarios->get(0)->totalAtivos() }}
             </div>
             <span>funcionários ativos</span>
         </div>
@@ -17,25 +17,16 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="mission-stat-number">
-                10
+                {{ $funcionarios->get(0)->totalInativos() }}
             </div>
             <span>funcionários inativos</span>
-        </div>
-        <div class="mission-stat">
-            <div class="mission-stat-icon azul">
-                <i class="fa-solid fa-user-clock"></i>
-            </div>
-            <div class="mission-stat-number">
-                10
-            </div>
-            <span>funcionários presentes</span>
         </div>
         <div class="mission-stat">
             <div class="mission-stat-icon">
                 <i class="fa-solid fa-user-group"></i>
             </div>
             <div class="mission-stat-number">
-                10
+                {{ $funcionarios->get(0)->total() }}
             </div>
             <span>total de funcionários</span>
         </div>
