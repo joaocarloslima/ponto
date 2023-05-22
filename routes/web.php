@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\RegistroController;
+use App\Models\Registro;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,7 @@ Route::get('/', function () {
 
 Route::resource('funcionarios', FuncionarioController::class);
 Route::resource('feriados', FeriadoController::class);
+Route::resource('registros', RegistroController::class);
 
 Route::get('inativos', [FuncionarioController::class, 'inativos'])->name('funcionarios.inativos');
 Route::put('inativos/{funcionario}', [FuncionarioController::class, 'ativar'])->name('funcionarios.ativar');
