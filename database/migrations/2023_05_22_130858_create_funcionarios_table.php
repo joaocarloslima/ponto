@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('telefone');
+            $table->string('password')->nullable();
             $table->integer('matricula')->unique();
-            $table->string('foto');
+            $table->string('foto')->nullable();
+            $table->boolean('ativo')->default(true);
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

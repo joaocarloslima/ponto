@@ -15,6 +15,7 @@ class Funcionario extends Authenticatable
     protected $fillable = [
         'nome',
         'email',
+        'telefone',
         'password',
         'matricula',
         'foto'

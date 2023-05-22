@@ -11,7 +11,7 @@ class FuncionarioFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,15 +19,13 @@ class FuncionarioFormRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
+            'matricula' => 'required',
             'nome' => 'required|min:3|max:100',
             'email' => 'required|email|unique:funcionarios',
-            'password' => 'required|min:6',
-            'password_confirmation' => 'required|same:password',
-            'matricula' => 'required',
-            'foto' => 'required|image'
+            'telefone' => 'required'
         ];
     }
 
@@ -44,6 +42,7 @@ class FuncionarioFormRequest extends FormRequest
             'email.required' => 'O campo email é obrigatório',
             'email.email' => 'O campo email deve ser um email válido',
             'email.unique' => 'O email informado já está cadastrado',
+            'telefone.required' => 'O campo telefone é obrigatório',
             'password.required' => 'O campo senha é obrigatório',
             'password.min' => 'O campo senha deve ter no mínimo 6 caracteres',
             'password_confirmation.required' => 'O campo confirmar senha é obrigatório',

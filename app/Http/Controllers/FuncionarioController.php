@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FuncionarioFormRequest;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,28 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('funcionarios.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FuncionarioFormRequest $request)
     {
-        //
+        
+        if ($request->hasFile('image_file')){
+            $request->validate([
+                'image_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $image = $request->file('image_file')->store('funcionarios', 'public');
+        }else{
+            $image = "funcionarios/default.jpg";
+        }
+        $request->merge(['foto' => $image]);
+        Funcionario::create($request->all());
+
+        return to_route('funcionarios.index')
+            ->with('successMessage', 'Funcionário cadastrado com sucesso!');
     }
 
     /**
