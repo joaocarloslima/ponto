@@ -41,6 +41,12 @@
         </div>
     </div>
 
+    @isset($successMessage)
+        <div class="alert alert-success">
+            {{ $successMessage }}
+        </div>
+    @endisset
+
     <div class="toolbar">
         <div class="field">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -59,7 +65,7 @@
                 <div class="crud-data">
                     <div class="crud-title">
                         <div class="avatar">
-                            <img src="{{ asset('storage/' .$funcionario->foto) }}"
+                            <img src="{{ asset('storage/' . $funcionario->foto) }}"
                                 onerror="this.onerror=null;this.src='https://i.pravatar.cc/150?img=50'">
                         </div>
                         {{ $funcionario->nome }}

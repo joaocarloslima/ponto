@@ -13,8 +13,13 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = Funcionario::all();
-        return view('funcionarios.index')->with('funcionarios', $funcionarios);
+        $successMessage = session('successMessage');
+        //buscar funcionarios ativos 
+        $funcionarios = Funcionario::where('ativo', true)->get();
+
+        return view('funcionarios.index')
+            ->with('funcionarios', $funcionarios)
+            ->with('successMessage', $successMessage);
     }
 
     /**
@@ -87,6 +92,10 @@ class FuncionarioController extends Controller
      */
     public function destroy(Funcionario $funcionario)
     {
-        //
+        $funcionario->ativo = false;
+        $funcionario->save();
+
+        return to_route('funcionarios.index')
+            ->with('successMessage', 'Funcionário inativado com sucesso!');
     }
 }

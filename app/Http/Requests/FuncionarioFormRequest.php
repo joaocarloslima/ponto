@@ -22,9 +22,9 @@ class FuncionarioFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'matricula' => 'required',
+            'matricula' => 'required|unique:funcionarios',
             'nome' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:funcionarios',
+            'email' => 'required|email',
             'telefone' => 'required'
         ];
     }
@@ -48,6 +48,7 @@ class FuncionarioFormRequest extends FormRequest
             'password_confirmation.required' => 'O campo confirmar senha é obrigatório',
             'password_confirmation.same' => 'O campo confirmar senha deve ser igual ao campo senha',
             'matricula.required' => 'O campo matrícula é obrigatório',
+            'matricula.unique' => 'A matrícula informada já está cadastrada',
             'foto.required' => 'O campo foto é obrigatório',
             'foto.image' => 'O campo foto deve ser uma imagem válida'
         ];
