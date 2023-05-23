@@ -77,6 +77,8 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        //
+        $registro->delete();
+        return to_route('registros.index')
+            ->with('successMessage', 'Registro excluído com sucesso!');
     }
 }
