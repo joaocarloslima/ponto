@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->id();
-            $table->date('datahora');
+            $table->dateTime('datahora')->default(now());
             $table->string('latitude');
             $table->string('longitude');
             $table->boolean('manual')->default(false);

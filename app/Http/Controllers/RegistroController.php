@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Funcionario;
 use App\Models\Registro;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,13 @@ class RegistroController extends Controller
      */
     public function index()
     {
+        $successMessage = session('successMessage');
+
         $registros = Registro::orderBy('datahora', 'desc')->take(50)->get();
 
         return view('registros.index')
-            ->with('registros', $registros);
+            ->with('registros', $registros)
+            ->with('successMessage', $successMessage);
     }
 
     /**
@@ -23,7 +27,10 @@ class RegistroController extends Controller
      */
     public function create()
     {
-        //
+        $funcionarios = Funcionario::where('ativo', true)->orderBy('nome')->get();
+        return view('registros.create')
+            ->with('funcionarios', $funcionarios)
+            ;
     }
 
     /**
@@ -31,7 +38,14 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['manual' => true]);
+        $request->merge(['latitude' => '0']);
+        $request->merge(['longitude' => '0']);
+
+        Registro::create($request->all());
+
+        return to_route('registros.index')
+            ->with('successMessage', 'Registro cadastrado com sucesso!');
     }
 
     /**
