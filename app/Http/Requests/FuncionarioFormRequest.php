@@ -22,7 +22,7 @@ class FuncionarioFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'matricula' => 'required|unique:funcionarios',
+            'matricula' => 'required',
             'nome' => 'required|min:3|max:100',
             'email' => 'required|email',
             'telefone' => 'required'
