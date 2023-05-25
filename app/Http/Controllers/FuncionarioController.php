@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FuncionarioFormRequest;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FuncionarioController extends Controller
 {
@@ -116,5 +117,7 @@ class FuncionarioController extends Controller
         return to_route('funcionarios.inativos')
             ->with('successMessage', 'Funcionário ativado com sucesso!');
     }
+
+
 
 }

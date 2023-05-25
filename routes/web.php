@@ -3,6 +3,7 @@
 use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\RegistroController;
+use App\Models\Funcionario;
 use App\Models\Registro;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,6 @@ Route::resource('registros', RegistroController::class);
 
 Route::get('inativos', [FuncionarioController::class, 'inativos'])->name('funcionarios.inativos');
 Route::put('inativos/{funcionario}', [FuncionarioController::class, 'ativar'])->name('funcionarios.ativar');
+
+Route::post('relatorios', [RegistroController::class, 'relatorio'])->name('relatorio');
+Route::get('relatorios', [RegistroController::class, 'filtro'])->name('relatorio.filtro');
