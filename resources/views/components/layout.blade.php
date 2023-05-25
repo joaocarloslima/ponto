@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,21 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Ponto - {{ $titulo }}</title>
 </head>
+
 <body>
     <header>
         <div class="logo">
             <h1>PONT<span>O</span> ETECIA</h1>
+        </div>
+        <div class="userdata">
+            <div class="avatar">
+                <img class="avatar" src="{{ asset('storage/' . auth()->user()->foto) }}"
+                    onerror="this.onerror=null;this.src='https://i.pravatar.cc/150?img=50'">
+            </div>
+            {{ auth()->user()->nome }}
+            <a href="{{ route('logout') }}">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
         </div>
     </header>
 
@@ -25,4 +37,5 @@
         </main>
     </div>
 </body>
+
 </html>

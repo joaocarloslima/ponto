@@ -118,6 +118,33 @@ class FuncionarioController extends Controller
             ->with('successMessage', 'Funcionário ativado com sucesso!');
     }
 
+    public function formLogin(){
+        return view('funcionarios.login')
+            ->with('errorMessage', session('errorMessage'));
+    }
+
+    public function logout(){
+        auth()->logout();
+        return to_route('login');
+    }
+
+    public function logar(Request $request){
+        $request->validate([
+            'matricula' => 'required',
+            'password' => 'required'
+        ], [
+            'matricula.required' => 'O campo matrícula é obrigatório',
+            'password.required' => 'O campo senha é obrigatório'
+        ]);
+
+        
+        $data = $request->only(['matricula', 'password']);
+        if (auth()->attempt($data)) {
+            return to_route('funcionarios.index');
+        }
+        return back()->with('errorMessage', 'Acesso negado');
+    }
+
 
 
 }

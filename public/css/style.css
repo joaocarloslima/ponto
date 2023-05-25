@@ -193,6 +193,12 @@ i.blue {
     border-radius: 50%;
 }
 
+.userdata{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .button:hover {
     opacity: 0.9;
 }
