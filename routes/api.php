@@ -27,3 +27,4 @@ Route::get('/', function () {
 });
 
 Route::post('/registrar', [RegistroController::class, 'registrar']);
+Route::get('/dashboard', [RegistroController::class, 'dashboard']);

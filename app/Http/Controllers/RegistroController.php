@@ -174,6 +174,9 @@ class RegistroController extends Controller
 
     function montarArrayDiasMes($ano, $mes)
     {
+        $ano = intval($ano);
+        $mes = intval($mes);
+        
         if ($mes < 10) {
             $mes = '0' . $mes;
         }
@@ -222,5 +225,63 @@ class RegistroController extends Controller
         $funcionarios = Funcionario::where('ativo', true)->orderBy('nome')->get();
         return view('registros.filtro')
             ->with('funcionarios', $funcionarios);
+    }
+
+    public function dashboard(Request $request){
+        $matricula = $request->input('matricula');
+        $funcionario = Funcionario::where('matricula', $matricula)->first();
+
+        if (!$funcionario) {
+            return response()->json([
+                'message' => 'Matrícula não encontrada!'
+            ], 404);
+        }
+
+        $presencas = $this->getPresencasDoMesAtual($funcionario);
+
+        $primeironome = explode(" ", $funcionario->nome)[0];
+
+        //buscar os ultimos 10 registros do funcionario
+        $registros = Registro::where('funcionario_id', $funcionario->id)
+            ->orderBy('datahora', 'desc')
+            ->take(10)
+            ->get();
+        
+        foreach ($registros as $registro) {
+            $registro->diasemana = $this->getDiaDaSemana( date('w', strtotime($registro->datahora)) );
+            $registro->hora = date('H:i', strtotime($registro->datahora));
+            $registro->datahora = date('d-m', strtotime($registro->datahora));
+        }
+
+        return response()->json([
+            'nome' => $primeironome,
+            'registros' => $registros,
+            'presencas' => $presencas
+        ]);
+
+    }
+
+    private function getPresencasDoMesAtual(Funcionario $funcionario){
+        $registros = Registro::where('funcionario_id', $funcionario->id)
+            ->whereMonth('datahora', date('m'))
+            ->whereYear('datahora', date('Y'))
+            ->orderBy('datahora')
+            ->get()
+            ->groupBy(function ($registro) {
+                return \Carbon\Carbon::parse($registro->datahora)->format('d');
+            });
+
+        $arrayDias = $this->montarArrayDiasMes(date('Y'), date('m'));
+        $arrayRegistros = $registros->toArray();
+        
+        foreach ($arrayDias as &$dia) {
+            $indice = $dia['dia'];
+            $dia['presenca'] = (isset($arrayRegistros[$indice]));
+        }
+        
+        unset($dia); // Remova a referência após o loop
+
+        return $arrayDias;
+        
     }
 }
