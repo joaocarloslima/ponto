@@ -38,7 +38,7 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['manual' => true]);
+        $request->merge(['manual' => 1]);
         $request->merge(['latitude' => '0']);
         $request->merge(['longitude' => '0']);
 
@@ -46,6 +46,28 @@ class RegistroController extends Controller
 
         return to_route('registros.index')
             ->with('successMessage', 'Registro cadastrado com sucesso!');
+    }
+
+    public function registrar(Request $request)
+    {
+        $funcionario = Funcionario::where('matricula', $request->input('matricula'))->first();
+
+        if (!$funcionario) {
+            return response()->json([
+                'message' => 'Matrícula não encontrada!'
+            ], 404);
+        }
+
+        $request->merge(['funcionario_id' => $funcionario->id]);
+
+        $datahora = new DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
+        $request->merge(['datahora' => $datahora]);
+
+        Registro::create($request->all());
+
+        return response()->json([
+            'message' => 'Registro realizado com sucesso!'
+        ], 201);
     }
 
     /**

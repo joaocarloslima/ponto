@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegistroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//get test
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'API - 1.0'
+    ]);
+});
+
+Route::post('/registrar', [RegistroController::class, 'registrar']);

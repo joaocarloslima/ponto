@@ -12,7 +12,7 @@
                     <option value="{{ $funcionario->matricula }}">{{ $funcionario->nome }}</option>
                 @endforeach
             </datalist>
-            <input type="month" name="mes" id="mes" placeholder="mês">
+            <input type="month" name="mes" id="mes" placeholder="mês" value="{{ date('Y-m') }}">
             <button class="button">
                 <i class="fa-solid fa-print"></i>
                 imprimir
