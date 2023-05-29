@@ -176,7 +176,7 @@ class RegistroController extends Controller
     {
         $ano = intval($ano);
         $mes = intval($mes);
-        
+
         if ($mes < 10) {
             $mes = '0' . $mes;
         }
@@ -255,6 +255,7 @@ class RegistroController extends Controller
 
         return response()->json([
             'nome' => $primeironome,
+            'foto' => url('/') . '/'. 'storage/' . $funcionario->foto,
             'registros' => $registros,
             'presencas' => $presencas
         ]);
